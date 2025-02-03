@@ -8,7 +8,7 @@ interface MovieMinimalProps {
 
 export default function MovieMinimalCard({ movie }: MovieMinimalProps) {
   return (
-    <Link href={`/watch/${movie.slug}`} className="h-full">
+    <Link href={`/watch?slug=${movie.slug}`} className="h-full">
       <div className="group relative flex h-full flex-col overflow-hidden rounded-lg bg-gray-800 transition-transform hover:scale-105">
         <div className="relative aspect-[2/3] w-full">
           <Image

@@ -15,7 +15,7 @@ export default function CategorySelectBox({
   const router = useRouter();
   return (
     <div className="flex flex-wrap gap-2">
-      <select onChange={(e) => router.push(`/category/${e.target.value}`)}>
+      <select onChange={(e) => router.push(`/category?slug=${e.target.value}`)}>
         {categories.map((category: any) => (
           <option
             key={category.slug}
