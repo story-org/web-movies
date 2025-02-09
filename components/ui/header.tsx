@@ -69,7 +69,7 @@ export default function Header({
               onChange={(e) => handleSelect(e.target.value, false)}
               className="px-3 py-2 text-sm font-medium rounded-md border border-gray-300 bg-white dark:bg-gray-900 dark:border-gray-700"
             >
-              <option value="">Select Topic</option>
+              <option value="">Chọn Danh Mục</option>
               {topics.map((topic) => (
                 <option key={topic.slug} value={topic.slug}>
                   {topic.name}
@@ -81,7 +81,7 @@ export default function Header({
               onChange={(e) => handleSelect(e.target.value, true)}
               className="px-3 py-2 text-sm font-medium rounded-md border border-gray-300 bg-white dark:bg-gray-900 dark:border-gray-700"
             >
-              <option value="">Select Category</option>
+              <option value="">Thể Loại</option>
               {categories.map((category) => (
                 <option key={category.slug} value={category.slug}>
                   {category.name}
@@ -177,7 +177,7 @@ export default function Header({
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search..."
+                placeholder="Tìm kiếm..."
                 className="flex-1 px-4 py-2 border rounded-md dark:bg-gray-700 dark:border-gray-600"
                 autoFocus
               />
@@ -185,14 +185,14 @@ export default function Header({
                 type="submit"
                 className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
               >
-                Search
+                Tìm Kiếm
               </button>
               <button
                 type="button"
                 onClick={() => setShowSearch(false)}
                 className="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"
               >
-                Cancel
+                Hủy
               </button>
             </div>
           </form>
