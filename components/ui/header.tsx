@@ -142,7 +142,7 @@ export default function Header({
               onChange={(e) => handleSelect(e.target.value, false)}
               className="w-full px-3 py-2 text-sm font-medium rounded-md border border-gray-300 bg-white dark:bg-gray-900 dark:border-gray-700"
             >
-              <option value="">Select Topic</option>
+              <option value="">Chọn Danh Mục</option>
               {topics.map((topic) => (
                 <option key={topic.slug} value={topic.slug}>
                   {topic.name}
@@ -154,7 +154,7 @@ export default function Header({
               onChange={(e) => handleSelect(e.target.value, true)}
               className="w-full px-3 py-2 text-sm font-medium rounded-md border border-gray-300 bg-white dark:bg-gray-900 dark:border-gray-700"
             >
-              <option value="">Select Category</option>
+              <option value="">Thể Loại</option>
               {categories.map((category) => (
                 <option key={category.slug} value={category.slug}>
                   {category.name}
