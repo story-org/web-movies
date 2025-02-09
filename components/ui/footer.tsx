@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:justify-between sm:space-y-0">
           <div className="flex items-center space-x-4">
             <Link
-              href="https://discord.gg/your-discord"
+              href="https://discord.gg/YgN6YASs3B"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-600 hover:text-gray-900 transition-colors"
@@ -19,7 +19,7 @@ export default function Footer() {
               </svg>
             </Link>
             <Link
-              href="https://t.me/your-telegram"
+              href="https://t.me/contentdownload"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-600 hover:text-gray-900 transition-colors"
