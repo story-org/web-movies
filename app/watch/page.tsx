@@ -8,7 +8,7 @@ export async function generateMetadata({ searchParams }: any) {
   const api = new PhimApi();
   const { movie } = await api.get(slug);
   return {
-    title: movie.name,
+    title: movie.name + " - Phim Ảnh",
     description: movie.content,
     openGraph: {
       images: [movie.poster_url],

@@ -24,9 +24,10 @@ export async function generateMetadata({ searchParams }: HomeProps) {
     postTitle = topics.find((t: any) => t.slug === topic);
   }
 
-  const titleText = postTitle
-    ? `${postTitle.name} | `
-    : "" + "Phim Ảnh" + (index > 1 ? " - Trang " + index : "");
+  const titleText =
+    (postTitle ? `${postTitle.name} | ` : "") +
+    "Phim Ảnh" +
+    (index > 1 ? " - Trang " + index : "");
   return {
     title: titleText,
     description:
