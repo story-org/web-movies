@@ -12,7 +12,7 @@ type SearchPageProps = {
 };
 export async function generateMetadata({ searchParams }: SearchPageProps) {
   const { index, query } = await searchParams;
-  const postTitle = `Kết quả tìm kiếm cho "${query}"`;
+  const postTitle = `Kết quả cho "${query}"`;
 
   const titleText =
     `${postTitle} | Phim Ảnh` + (index > 1 ? " - Trang " + index : "");
@@ -20,8 +20,7 @@ export async function generateMetadata({ searchParams }: SearchPageProps) {
     title: titleText,
     description:
       "Khám phá kho tàng phim ảnh chất lượng cao với hình ảnh và âm thanh hoàn hảo. Trải nghiệm những tác phẩm điện ảnh kinh điển với chất lượng tuyệt đỉnh.",
-    keywords:
-      "phim ảnh, phim chất lượng cao, phim, phim hd, phim kinh điển, phim viễn tưởng, phim kinh dị, phim bộ, anime",
+    keywords: `${query}, phim ảnh, phim chất lượng cao, phim, phim hd, phim kinh điển, phim viễn tưởng, phim kinh dị, phim bộ, anime`,
   };
 }
 

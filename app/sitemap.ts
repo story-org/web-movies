@@ -5,7 +5,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://phimanh.mywire.org";
   const api = new PhimApi();
 
-  const [newMovies] = await api.newAdding(1);
+  const [newMovies] = await api.newAdding();
   const categories = await api.listCategories();
   const topics = api.listTopics();
 
@@ -30,15 +30,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  const movieRoutes = newMovies.map((movie: any) => {
-    const lastModified = new Date();
-    return {
-      url: `${baseUrl}/movie/${movie.slug}`,
-      lastModified: isNaN(lastModified.getTime()) ? new Date() : lastModified,
-      changeFrequency: "weekly" as const,
-      priority: 0.5,
-    };
-  });
+  const movieRoutes = newMovies.map((movie: any) => ({
+    url: `${baseUrl}/watch/${movie.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "yearly" as const,
+    priority: 0.5,
+  }));
 
   return [...routes, ...topicRoutes, ...categoryRoutes, ...movieRoutes];
 }

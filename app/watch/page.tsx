@@ -10,6 +10,7 @@ export async function generateMetadata({ searchParams }: any) {
   return {
     title: movie.name + " - Phim Ảnh",
     description: movie.content,
+    keywords: `${movie.name}, ${movie.origin_name}, phim ảnh, phim chất lượng cao, phim, phim hd, phim kinh điển, phim viễn tưởng, phim kinh dị, phim bộ, anime`,
     openGraph: {
       images: [movie.poster_url],
     },
