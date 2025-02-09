@@ -17,6 +17,7 @@ export default function MovieMinimalCard({ movie }: MovieMinimalProps) {
               (e.currentTarget.src = `https://phimimg.com/${movie.poster_url}`)
             }
             alt={movie.name}
+            loading="lazy"
             className="object-cover transition-transform group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
