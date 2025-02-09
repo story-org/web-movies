@@ -3,6 +3,19 @@ import Description from "@/components/movie/description";
 import Header from "@/components/ui/header";
 import Footer from "@/components/ui/footer";
 
+export async function generateMetadata({ searchParams }: any) {
+  const { slug } = await searchParams;
+  const api = new PhimApi();
+  const { movie } = await api.get(slug);
+  return {
+    title: movie.name,
+    description: movie.content,
+    openGraph: {
+      images: [movie.poster_url],
+    },
+  };
+}
+
 export default async function WatchPage({ searchParams }: any) {
   const { slug } = await searchParams;
   const api = new PhimApi();

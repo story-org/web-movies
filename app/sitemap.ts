@@ -30,12 +30,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  const movieRoutes = newMovies.map((movie: any) => ({
-    url: `${baseUrl}/movie/${movie.slug}`,
-    lastModified: new Date(movie.modified),
-    changeFrequency: "weekly" as const,
-    priority: 0.5,
-  }));
+  const movieRoutes = newMovies.map((movie: any) => {
+    const lastModified = new Date();
+    return {
+      url: `${baseUrl}/movie/${movie.slug}`,
+      lastModified: isNaN(lastModified.getTime()) ? new Date() : lastModified,
+      changeFrequency: "weekly" as const,
+      priority: 0.5,
+    };
+  });
 
   return [...routes, ...topicRoutes, ...categoryRoutes, ...movieRoutes];
 }
