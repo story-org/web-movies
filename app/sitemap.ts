@@ -17,14 +17,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const topicRoutes = topics.map((topic) => ({
-    url: `${baseUrl}?topic=${topic.slug}`,
+    url: `${baseUrl}/?topic=${topic.slug}`,
     lastModified: new Date(),
     changeFrequency: "daily" as const,
     priority: 0.8,
   }));
 
   const categoryRoutes = categories.map((category: any) => ({
-    url: `${baseUrl}?category=${category.slug}`,
+    url: `${baseUrl}/?category=${category.slug}`,
     lastModified: new Date(),
     changeFrequency: "daily" as const,
     priority: 0.8,
