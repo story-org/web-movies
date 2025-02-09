@@ -1,6 +1,7 @@
 import PhimApi from "@/libs/phimapi.com";
 import MovieMinimalCard from "@/components/movie/movie-minimal";
 import Header from "@/components/ui/header";
+import Pagination from "@/components/ui/pagination";
 import Footer from "@/components/ui/footer";
 
 type HomeProps = {
@@ -25,13 +26,13 @@ export async function generateMetadata({ searchParams }: HomeProps) {
 
   const titleText = postTitle
     ? `${postTitle.name} | `
-    : "" + "Phim Ảnh Remaster" + (index > 1 ? " - Trang " + index : "");
+    : "" + "Phim Ảnh" + (index > 1 ? " - Trang " + index : "");
   return {
     title: titleText,
     description:
-      "Khám phá kho tàng phim ảnh chất lượng cao với hình ảnh và âm thanh được làm mới hoàn hảo. Trải nghiệm những tác phẩm điện ảnh kinh điển với chất lượng Remaster tuyệt đỉnh.",
+      "Khám phá kho tàng phim ảnh chất lượng cao với hình ảnh và âm thanh hoàn hảo. Trải nghiệm những tác phẩm điện ảnh kinh điển với chất lượng tuyệt đỉnh.",
     keywords:
-      "phim ảnh remaster, phim chất lượng cao, phim, phim hd, phim kinh điển, phim ảnh, phim viễn tưởng, phim kinh dị, phim bộ, anime",
+      "phim ảnh, phim chất lượng cao, phim, phim hd, phim kinh điển, phim viễn tưởng, phim kinh dị, phim bộ, anime",
   };
 }
 
@@ -58,7 +59,8 @@ export default async function Home({ searchParams }: HomeProps) {
           <MovieMinimalCard key={movie.slug} movie={movie} />
         ))}
       </div>
-      <Footer pageInfo={pageInfo} />
+      <Pagination pageInfo={pageInfo} />
+      <Footer />
     </main>
   );
 }
