@@ -1,7 +1,0 @@
-name: web-movies-reboot
-region: us-east-1
-yamlVersion: 2
-nextjs:
-    path: .
-    packageManager: npm
-    subdomains: phimhub

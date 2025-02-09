@@ -17,11 +17,11 @@ export default class PhimApi {
   listTopics(): any[] {
     return [
       {
-        name: "Phim Bộ",
+        name: "Chương Trình Truyền Hình",
         slug: "phim-bo",
       },
       {
-        name: "Phim Lẻ",
+        name: "Phim Điện Ảnh",
         slug: "phim-le",
       },
       {
