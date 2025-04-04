@@ -64,7 +64,7 @@ export default function PaginationComponent({ pageInfo }: { pageInfo: any }) {
             href={`${pathname}?${createQueryString(
               Math.max(1, pageInfo.currentPage - 1)
             )}`}
-            isDisabled={pageInfo.currentPage === 1}
+            isActive={pageInfo.currentPage > 1}
           />
         </PaginationItem>
 
@@ -90,7 +90,7 @@ export default function PaginationComponent({ pageInfo }: { pageInfo: any }) {
             href={`${pathname}?${createQueryString(
               Math.min(pageInfo.totalPages, pageInfo.currentPage + 1)
             )}`}
-            isDisabled={pageInfo.currentPage === pageInfo.totalPages}
+            isActive={pageInfo.currentPage < pageInfo.totalPages}
           />
         </PaginationItem>
       </PaginationContent>
