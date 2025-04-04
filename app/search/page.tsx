@@ -1,8 +1,8 @@
 import PhimApi from "@/libs/phimapi.com";
 import MovieMinimalCard from "@/components/movie/movie-minimal";
-import Header from "@/components/ui/header";
-import Pagination from "@/components/ui/pagination";
-import Footer from "@/components/ui/footer";
+import Header from "@/components/header";
+import Pagination from "@/components/pagination";
+import Footer from "@/components/footer";
 
 type SearchPageProps = {
   searchParams: Promise<{

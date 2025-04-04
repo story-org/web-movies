@@ -1,5 +1,8 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -64,36 +67,37 @@ export default function Header({
           </h1>
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-4">
-            <select
-              value={!isCategory ? currentValue : ""}
-              onChange={(e) => handleSelect(e.target.value, false)}
-              className="px-3 py-2 text-sm font-medium rounded-md border border-gray-300 bg-white dark:bg-gray-900 dark:border-gray-700"
-            >
-              <option value="">Chọn Danh Mục</option>
-              {topics.map((topic) => (
-                <option key={topic.slug} value={topic.slug}>
-                  {topic.name}
-                </option>
-              ))}
-            </select>
-            <select
-              value={isCategory ? currentValue : ""}
-              onChange={(e) => handleSelect(e.target.value, true)}
-              className="px-3 py-2 text-sm font-medium rounded-md border border-gray-300 bg-white dark:bg-gray-900 dark:border-gray-700"
-            >
-              <option value="">Thể Loại</option>
-              {categories.map((category) => (
-                <option key={category.slug} value={category.slug}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
+            <Select value={!isCategory ? currentValue : ""} onValueChange={(value) => handleSelect(value, false)}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Chọn Danh Mục" />
+              </SelectTrigger>
+              <SelectContent>
+                {topics.map((topic) => (
+                  <SelectItem key={topic.slug} value={topic.slug}>
+                    {topic.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Select value={isCategory ? currentValue : ""} onValueChange={(value) => handleSelect(value, true)}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Thể Loại" />
+              </SelectTrigger>
+              <SelectContent>
+                {categories.map((category) => (
+                  <SelectItem key={category.slug} value={category.slug}>
+                    {category.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
         <div className="flex items-center space-x-2">
-          <button
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => setShowSearch(!showSearch)}
-            className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -109,11 +113,13 @@ export default function Header({
                 d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
               />
             </svg>
-          </button>
+          </Button>
           {/* Mobile Menu Button */}
-          <button
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
             onClick={() => setShowMobileMenu(!showMobileMenu)}
-            className="md:hidden p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -129,7 +135,7 @@ export default function Header({
                 d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
               />
             </svg>
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -137,30 +143,30 @@ export default function Header({
       {showMobileMenu && (
         <div className="md:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4">
           <div className="space-y-4">
-            <select
-              value={!isCategory ? currentValue : ""}
-              onChange={(e) => handleSelect(e.target.value, false)}
-              className="w-full px-3 py-2 text-sm font-medium rounded-md border border-gray-300 bg-white dark:bg-gray-900 dark:border-gray-700"
-            >
-              <option value="">Chọn Danh Mục</option>
-              {topics.map((topic) => (
-                <option key={topic.slug} value={topic.slug}>
-                  {topic.name}
-                </option>
-              ))}
-            </select>
-            <select
-              value={isCategory ? currentValue : ""}
-              onChange={(e) => handleSelect(e.target.value, true)}
-              className="w-full px-3 py-2 text-sm font-medium rounded-md border border-gray-300 bg-white dark:bg-gray-900 dark:border-gray-700"
-            >
-              <option value="">Thể Loại</option>
-              {categories.map((category) => (
-                <option key={category.slug} value={category.slug}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
+            <Select value={!isCategory ? currentValue : ""} onValueChange={(value) => handleSelect(value, false)}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Chọn Danh Mục" />
+              </SelectTrigger>
+              <SelectContent>
+                {topics.map((topic) => (
+                  <SelectItem key={topic.slug} value={topic.slug}>
+                    {topic.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Select value={isCategory ? currentValue : ""} onValueChange={(value) => handleSelect(value, true)}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Thể Loại" />
+              </SelectTrigger>
+              <SelectContent>
+                {categories.map((category) => (
+                  <SelectItem key={category.slug} value={category.slug}>
+                    {category.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
       )}
@@ -173,27 +179,24 @@ export default function Header({
             className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg w-full max-w-xl mx-4"
           >
             <div className="flex gap-2">
-              <input
+              <Input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Tìm kiếm..."
-                className="flex-1 px-4 py-2 border rounded-md dark:bg-gray-700 dark:border-gray-600"
+                className="flex-1"
                 autoFocus
               />
-              <button
-                type="submit"
-                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-              >
+              <Button type="submit">
                 Tìm Kiếm
-              </button>
-              <button
+              </Button>
+              <Button
                 type="button"
+                variant="secondary"
                 onClick={() => setShowSearch(false)}
-                className="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"
               >
                 Hủy
-              </button>
+              </Button>
             </div>
           </form>
         </div>

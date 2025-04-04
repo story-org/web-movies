@@ -3,6 +3,10 @@
 import { useState } from "react";
 import Episode from "./episode";
 import HLSPlayer from "../hls-player";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 export default function Description({ movie, serverData }: any) {
   const [showTrailer, setShowTrailer] = useState(false);
@@ -10,8 +14,8 @@ export default function Description({ movie, serverData }: any) {
   const [currentEpisodeUrl, setCurrentEpisodeUrl] = useState("");
 
   return (
-    <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
-      <div className="flex flex-col space-y-4">
+    <Card className="p-6">
+      <CardContent className="flex flex-col space-y-4 p-0">
         <div className="flex flex-col md:flex-row md:space-x-6">
           <div className="relative flex justify-center items-center md:w-1/3">
             <img
@@ -25,37 +29,29 @@ export default function Description({ movie, serverData }: any) {
                 {movie.name}
               </h1>
               <div className="flex flex-wrap gap-2 text-sm">
-                <span className="px-3 py-1 bg-blue-100/90 text-blue-800 rounded-full">
-                  {movie.quality}
-                </span>
-                <span className="px-3 py-1 bg-green-100/90 text-green-800 rounded-full">
-                  {movie.lang}
-                </span>
-                <span className="px-3 py-1 bg-purple-100/90 text-purple-800 rounded-full">
-                  {movie.time}
-                </span>
-                <span className="px-3 py-1 bg-yellow-100/90 text-yellow-800 rounded-full">
-                  {movie.year}
-                </span>
+                <Badge variant="secondary">{movie.quality}</Badge>
+                <Badge variant="secondary">{movie.lang}</Badge>
+                <Badge variant="secondary">{movie.time}</Badge>
+                <Badge variant="secondary">{movie.year}</Badge>
               </div>
             </div>
           </div>
 
           <div className="md:w-2/3">
             <div className="flex flex-wrap gap-2 py-4">
-              <button
+              <Button
+                variant="secondary"
                 onClick={() => setShowMovie(!showMovie)}
-                className="px-4 py-2 text-white rounded-lg bg-slate-600 hover:bg-slate-700 transition-colors"
               >
                 {showMovie ? "Đóng" : "Xem Phim"}
-              </button>
+              </Button>
               {movie.trailer_url && (
-                <button
+                <Button
+                  variant="secondary"
                   onClick={() => setShowTrailer(true)}
-                  className="px-4 py-2 text-white rounded-lg transition-colors bg-slate-600 hover:bg-slate-700"
                 >
                   Xem Trailer
-                </button>
+                </Button>
               )}
             </div>
 
@@ -72,11 +68,11 @@ export default function Description({ movie, serverData }: any) {
               />
             )}
 
-            <h2 className="text-xl text-gray-600 dark:text-gray-300 mt-4">
+            <h2 className="text-xl text-muted-foreground mt-4">
               {movie.origin_name}
             </h2>
 
-            <div className="grid grid-cols-2 gap-4 text-sm text-gray-600 dark:text-gray-300 mt-4">
+            <div className="grid grid-cols-2 gap-4 text-sm text-muted-foreground mt-4">
               <div>
                 <p className="font-semibold">Đạo diễn:</p>
                 <p>{movie.director.join(", ")}</p>
@@ -104,38 +100,30 @@ export default function Description({ movie, serverData }: any) {
             </div>
 
             <div className="mt-4">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+              <h3 className="text-lg font-semibold mb-2">
                 Nội dung phim
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed">
                 {movie.content}
               </p>
             </div>
           </div>
         </div>
 
-        {showTrailer && (
-          <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-            <div className="relative w-[90%] max-w-4xl">
-              <button
-                onClick={() => setShowTrailer(false)}
-                className="absolute -top-10 right-0 text-white text-xl"
-              >
-                ✕
-              </button>
-              <div className="aspect-w-16 aspect-h-9">
-                <iframe
-                  src={`https://www.youtube.com/embed/${
-                    movie.trailer_url.split("v=")[1]
-                  }`}
-                  className="w-full h-[400px] rounded-lg"
-                  allowFullScreen
-                />
-              </div>
+        <Dialog open={showTrailer} onOpenChange={setShowTrailer}>
+          <DialogContent className="sm:max-w-4xl">
+            <div className="aspect-w-16 aspect-h-9">
+              <iframe
+                src={`https://www.youtube.com/embed/${
+                  movie.trailer_url.split("v=")[1]
+                }`}
+                className="w-full h-[400px] rounded-lg"
+                allowFullScreen
+              />
             </div>
-          </div>
-        )}
-      </div>
-    </div>
+          </DialogContent>
+        </Dialog>
+      </CardContent>
+    </Card>
   );
 }

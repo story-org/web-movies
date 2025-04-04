@@ -1,7 +1,7 @@
 import PhimApi from "@/libs/phimapi.com";
 import Description from "@/components/movie/description";
-import Header from "@/components/ui/header";
-import Footer from "@/components/ui/footer";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 export async function generateMetadata({ searchParams }: any) {
   const { slug } = await searchParams;
