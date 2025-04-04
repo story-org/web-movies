@@ -1,110 +1,117 @@
-"use client";
+import * as React from "react"
+import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react"
 
-import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { cn } from "@/lib/utils"
+import { ButtonProps, buttonVariants } from "@/components/ui/button"
 
-interface PaginationProps {
-  pageInfo: any;
-}
+const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
+  <nav
+    role="navigation"
+    aria-label="pagination"
+    className={cn("mx-auto flex w-full justify-center", className)}
+    {...props}
+  />
+)
+Pagination.displayName = "Pagination"
 
-export default function Pagination({ pageInfo }: PaginationProps) {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+const PaginationContent = React.forwardRef<
+  HTMLUListElement,
+  React.ComponentProps<"ul">
+>(({ className, ...props }, ref) => (
+  <ul
+    ref={ref}
+    className={cn("flex flex-row items-center gap-1", className)}
+    {...props}
+  />
+))
+PaginationContent.displayName = "PaginationContent"
 
-  const createQueryString = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("index", page.toString());
-    return params.toString();
-  };
+const PaginationItem = React.forwardRef<
+  HTMLLIElement,
+  React.ComponentProps<"li">
+>(({ className, ...props }, ref) => (
+  <li ref={ref} className={cn("", className)} {...props} />
+))
+PaginationItem.displayName = "PaginationItem"
 
-  const getVisiblePages = () => {
-    const totalPages = pageInfo.totalPages;
-    const currentPage = pageInfo.currentPage;
-    const isMobile =
-      typeof window !== "undefined" &&
-      window.matchMedia("(max-width: 640px)").matches;
-    const delta = isMobile ? 1 : 2;
-    const range = [];
-    const rangeWithDots = [];
+type PaginationLinkProps = {
+  isActive?: boolean
+} & Pick<ButtonProps, "size"> &
+  React.ComponentProps<"a">
 
-    for (
-      let i = Math.max(2, currentPage - delta);
-      i <= Math.min(totalPages - 1, currentPage + delta);
-      i++
-    ) {
-      range.push(i);
-    }
+const PaginationLink = ({
+  className,
+  isActive,
+  size = "icon",
+  ...props
+}: PaginationLinkProps) => (
+  <a
+    aria-current={isActive ? "page" : undefined}
+    className={cn(
+      buttonVariants({
+        variant: isActive ? "outline" : "ghost",
+        size,
+      }),
+      className
+    )}
+    {...props}
+  />
+)
+PaginationLink.displayName = "PaginationLink"
 
-    if (currentPage - delta > 2) {
-      rangeWithDots.push(1, "...");
-    } else {
-      rangeWithDots.push(1);
-    }
+const PaginationPrevious = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof PaginationLink>) => (
+  <PaginationLink
+    aria-label="Go to previous page"
+    size="default"
+    className={cn("gap-1 pl-2.5", className)}
+    {...props}
+  >
+    <ChevronLeft className="h-4 w-4" />
+    <span>Previous</span>
+  </PaginationLink>
+)
+PaginationPrevious.displayName = "PaginationPrevious"
 
-    rangeWithDots.push(...range);
+const PaginationNext = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof PaginationLink>) => (
+  <PaginationLink
+    aria-label="Go to next page"
+    size="default"
+    className={cn("gap-1 pr-2.5", className)}
+    {...props}
+  >
+    <span>Next</span>
+    <ChevronRight className="h-4 w-4" />
+  </PaginationLink>
+)
+PaginationNext.displayName = "PaginationNext"
 
-    if (currentPage + delta < totalPages - 1) {
-      rangeWithDots.push("...", totalPages);
-    } else if (totalPages > 1) {
-      rangeWithDots.push(totalPages);
-    }
+const PaginationEllipsis = ({
+  className,
+  ...props
+}: React.ComponentProps<"span">) => (
+  <span
+    aria-hidden
+    className={cn("flex h-9 w-9 items-center justify-center", className)}
+    {...props}
+  >
+    <MoreHorizontal className="h-4 w-4" />
+    <span className="sr-only">More pages</span>
+  </span>
+)
+PaginationEllipsis.displayName = "PaginationEllipsis"
 
-    return rangeWithDots;
-  };
-
-  return (
-    <div className="flex max-w-screen items-center justify-center gap-1 sm:gap-2 py-4">
-      <Link
-        href={`${pathname}?${createQueryString(
-          Math.max(1, pageInfo.currentPage - 1),
-        )}`}
-        className={`p-2 sm:px-3 sm:py-1 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 ${
-          pageInfo.currentPage === 1 ? "opacity-50 pointer-events-none" : ""
-        }`}
-        aria-label="Previous page"
-      >
-        <ChevronLeft className="w-4 h-4" />
-      </Link>
-
-      <div className="flex items-center gap-1 sm:gap-2">
-        {getVisiblePages().map((page, index) =>
-          page === "..." ? (
-            <span
-              key={index}
-              className="px-2 sm:px-3 py-1 text-sm font-medium text-gray-700 dark:text-gray-300"
-            >
-              ...
-            </span>
-          ) : (
-            <Link
-              key={index}
-              href={`${pathname}?${createQueryString(page as number)}`}
-              className={`px-2 sm:px-3 py-1 text-sm font-medium rounded-md ${
-                pageInfo.currentPage === page
-                  ? "bg-blue-600 text-white dark:bg-blue-500"
-                  : "text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
-              }`}
-            >
-              {page}
-            </Link>
-          ),
-        )}
-      </div>
-
-      <Link
-        href={`${pathname}?${createQueryString(
-          Math.min(pageInfo.totalPages, pageInfo.currentPage + 1),
-        )}`}
-        className={`p-2 sm:px-3 sm:py-1 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 ${
-          pageInfo.currentPage === pageInfo.totalPages
-            ? "opacity-50 pointer-events-none"
-            : ""
-        }`}
-        aria-label="Next page"
-      >
-        <ChevronRight className="w-4 h-4" />
-      </Link>
-    </div>
-  );
+export {
+  Pagination,
+  PaginationContent,
+  PaginationLink,
+  PaginationItem,
+  PaginationPrevious,
+  PaginationNext,
+  PaginationEllipsis,
 }
